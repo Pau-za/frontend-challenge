@@ -1,23 +1,15 @@
 import DirectoryList from "./ui/components/DirectoryList";
 
-const fetchOffersList = () => {
-    // I do the fetch to the data
-    fetch(
+const fetchOffersList = async () => {
+    // I fetch the data
+    await fetch(
         "https://e6di35qzm7.execute-api.us-west-2.amazonaws.com/latest/directory",
     )
         .then(response => response.json())
         .then(data => {
-            // console.log(data.data);
-            let restaurant;
-            let discount;
-            data.data.forEach(element => {
-                for (const key in element) {
-                    restaurant = element.name;
-                    discount = element.discount;
-                    console.log(restaurant, discount);
-                }
-                DirectoryList(restaurant, discount);
-            });
+            const partners = data;
+            console.log(partners);
+            DirectoryList(partners);
         });
     return [];
 };
@@ -31,7 +23,6 @@ export default function App() {
                 </h2>
             </section>
             <DirectoryList offerList={fetchOffersList()} />
-            {/* <DirectoryList offerList={setRestaurant} /> */}
         </div>
     );
 }
